@@ -11,34 +11,131 @@
     <title>Document</title>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
-        <div class="container-fluid">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Perličky</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index2.html">Produkty</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index3.html">Objednávky</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index4.html">Kontakty</a>
-                </li>
-            </ul>
+<body class="bg-body-tertiary">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-sm bg-white shadow-sm py-3">
+        <div class="container-fluid px-4">
+            <!-- Logo a název -->
+            <a class="navbar-brand fw-bold fs-4 text-dark d-flex align-items-center gap-2 me-4" href="index.html">
+                <i id="candy-icon" class="fa-solid fa-cookie-bite" style="color: rgb(91, 62, 11); cursor: pointer; font-size: 1.8rem;"></i>
+                Perličky
+            </a>
+
+            <!-- Hamburger tlačítko pro mobilní zařízení -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu odkazy -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 text-secondary" href="index2.html">Produkty</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-semibold px-3 text-secondary" href="index3.html">Objednávky</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase fw-bold px-3 text-dark" href="index4.html">Kontakty</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <form action="/action_page.php">
-        <div class="mb-3 mt-3">
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    <!-- BOOTSTRAP PROGRESS BAR (15 %) -->
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="progress shadow-sm rounded-pill" style="height: 24px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated text-dark fw-bold rounded-pill"
+                        role="progressbar" style="width: 15%; background-color: #ffbff3;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                        15%
+                    </div>
+                </div>
+            </div>
         </div>
-        <label for="comment">Comments:</label>
-        <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
-    </form>
+    </div>
+
+    <!-- KONTAKTNÍ FORMULÁŘ -->
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                
+                <h2 class="fw-bold mb-4 text-center text-dark">Kontakty</h2>
+
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5">
+                    <form action="/action_page.php">
+                        
+                        <!-- Emailové pole -->
+                        <div class="mb-4">
+                            <label for="email" class="form-label fw-semibold text-dark">Emailová adresa:</label>
+                            <input type="email" class="form-control rounded-3 p-3" id="email"
+                                placeholder="Napište váš email (např. jan@example.cz)" name="email" required>
+                        </div>
+
+                        <!-- Výběrové pole Tom Select -->
+                        <div class="mb-4">
+                            <label for="topics" class="form-label fw-semibold text-dark">Téma dotazu / Zájmy:</label>
+                            <select id="topics" name="topics[]" multiple required placeholder="Vyberte...">
+                                <option value="perlicky">Dotaz k produktům Perličky</option>
+                                <option value="objednavky">Stav mé objednávky</option>
+                                <option value="velkoobchod">Velkoobchodní spolupráce</option>
+                                <option value="reklamace">Reklamace a vrácení zboží</option>
+                                <option value="ostatni">Ostatní dotazy</option>
+                            </select>
+                        </div>
+
+                        <!-- Textové pole pro zprávu s editorem -->
+                        <div class="mb-4">
+                            <label for="comment" class="form-label fw-semibold text-dark">Zpráva nebo dotaz:</label>
+                            <textarea class="form-control rounded-3 p-3" rows="5" id="comment"
+                                placeholder="Napište nám vaši zprávu..." name="text"></textarea>
+                        </div>
+
+                        <!-- Tlačítko odeslání s růžovou barvou -->
+                        <div class="text-center text-md-start">
+                            <button type="submit" class="btn text-dark fw-bold rounded-pill px-4 py-2 shadow-sm" style="background-color: #ffbff3; border-color: #ffbff3;">
+                                Odeslat zprávu
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SKRIPTY -->
+
+    <!-- CKEditor 5 (WYSIWYG editor pro textové pole) -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+    <script>
+        // Inicializace Tom Select
+        new TomSelect('#topics', {
+            plugins: {
+                remove_button: {
+                    title: 'Odebrat položku'
+                }
+            },
+            placeholder: 'Vyberte...',
+            hideSelected: true
+        });
+
+        // Inicializace CKEditoru pro zprávu s nastavením větší výšky
+        ClassicEditor
+            .create(document.querySelector('#comment'))
+            .then(editor => {
+                editor.ui.view.editable.element.style.minHeight = '200px';
+            })
+            .catch(error => {
+                console.error('Chyba při načítání WYSIWYG editoru:', error);
+            });
+    </script>
+
 </body>
 
 </html>
